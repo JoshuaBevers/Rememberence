@@ -1,6 +1,6 @@
 import { Input } from 'malwoden';
 import { Stage } from '../util/stage';
-import { state, Direction, GameState, restart } from '../util/globals';
+import { state, Direction } from '../util/globals';
 
 enum PlayerInput {
   NONE,
@@ -11,6 +11,7 @@ enum PlayerInput {
   SPACE,
   ESC,
   HELP,
+  INTERACT,
 }
 
 export class InputSystem {
@@ -46,6 +47,10 @@ export class InputSystem {
       .onDown(
         Input.KeyCode.H,
         () => (this.currentPlayerInput = PlayerInput.HELP),
+      )
+      .onDown(
+        Input.KeyCode.E,
+        () => (this.currentPlayerInput = PlayerInput.INTERACT),
       );
 
     keyboard.setContext(movement);
@@ -66,12 +71,7 @@ export class InputSystem {
       if (state.help) {
         state.help = false;
       }
-      if (
-        state.currentGameState === GameState.GAME_WIN ||
-        state.currentGameState === GameState.GAME_LOSS
-      ) {
-        restart();
-      }
+
       wasInput = false;
     } else if (this.currentPlayerInput === PlayerInput.SPACE) {
       // Normal Movement!
@@ -90,6 +90,8 @@ export class InputSystem {
     } else if (this.currentPlayerInput === PlayerInput.LEFT) {
       player.wantsToMove = Direction.LEFT;
       wasInput = true;
+    } else if (this.currentPlayerInput === PlayerInput.INTERACT) {
+      player.wantsToMove = Direction.INTERACT;
     }
 
     // Make sure we reset the player input

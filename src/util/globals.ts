@@ -18,8 +18,10 @@ export enum Direction {
   DOWN = 'down',
   LEFT = 'left',
   RIGHT = 'right',
+  INTERACT = 'interact',
 }
-const startingStage = 1;
+
+const startingStage = 0;
 export const gameSeed = new Rand.AleaRNG();
 
 interface GlobalState {
@@ -33,7 +35,7 @@ interface GlobalState {
 
 export const state: GlobalState = {
   // The current level 'depth'
-  stageCount: 1,
+  stageCount: 0,
   // Stores the current level
   stage: selectStage(startingStage),
   // Allows quick lookup of entities.

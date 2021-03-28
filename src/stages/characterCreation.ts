@@ -4,6 +4,7 @@ import { Terrain } from '../util/terrain';
 import { strokeTable } from './helpers';
 import { Entity } from '../characters/entity';
 import * as CharList from '../characters/teamList';
+import * as NPCList from '../characters/npcList';
 
 interface Stage1Config {
   name: string;
@@ -20,13 +21,11 @@ export function generateStage1(
   const map_width = width;
   const map_height = height;
   const map = new Generation.CellularAutomata<Terrain>(map_width, map_height, {
-    aliveValue: Terrain.tree,
+    aliveValue: Terrain.none,
     deadValue: Terrain.none,
   });
   map.randomize(0.63);
-  map.doSimulationStep(3);
-  map.connect();
-  strokeTable(map.table, Terrain.tree);
+  strokeTable(map.table, Terrain.tree); // change terrain
 
   const open: Vector2[] = [];
   for (let x = 0; x < map.table.width; x++) {
@@ -34,6 +33,7 @@ export function generateStage1(
       if (map.table.get({ x, y }) === 0) open.push({ x, y });
     }
   }
+
   const rng = new Rand.AleaRNG();
   const randomOpen = rng.shuffle(open);
   const entities: Entity[] = [];
@@ -47,6 +47,8 @@ export function generateStage1(
   }
 
   // Generate Entities
+  const GarryPos = { x: startPos.x + 1, y: startPos.y };
+  entities.push(NPCList.Garry({ position: GarryPos }));
 
   // Generate berries
 

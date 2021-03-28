@@ -82,10 +82,7 @@ export class RenderSystem {
       width: 53,
       height: 39,
     });
-    terminal.writeAt(
-      { x: 17, y: 0 },
-      ` Stage ${state.stageCount} | ${state.stage.name} `,
-    );
+    terminal.writeAt({ x: 17, y: 0 }, `Location: ${state.stage.name} `);
 
     for (let x = 0; x < state.stage.map.width; x++) {
       for (let y = 0; y < state.stage.map.height; y++) {

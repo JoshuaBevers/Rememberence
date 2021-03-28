@@ -3,10 +3,10 @@ import { generateStage1 } from './characterCreation';
 
 export function selectStage(stage: number): Stage {
   switch (stage) {
-    case 1:
+    case 0:
       return generateStage1(map_width, map_height, true, {
-        name: 'Town',
-        enemies: 7,
+        name: '????',
+        enemies: 0,
       });
   }
   throw new Error('Stage ID not recognized!');

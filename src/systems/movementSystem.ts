@@ -10,6 +10,7 @@ const directionVectors: any = {
   [Direction.DOWN]: { x: 0, y: 1 },
   [Direction.LEFT]: { x: -1, y: 0 },
   [Direction.RIGHT]: { x: 1, y: 0 },
+  [Direction.INTERACT]: { x: 0, y: 0 },
 };
 
 export class MovementSystem {
@@ -18,8 +19,11 @@ export class MovementSystem {
     for (let e of stage.entites) {
       if (e.wantsToMove) {
         // Get direction, the reset wants to move
-
         const direction = directionVectors[e.wantsToMove];
+
+        //dilogue checks
+        this.checkDialogue(e);
+        //end dialogue checks
 
         //line
         e.wantsToMove = undefined;
@@ -34,6 +38,7 @@ export class MovementSystem {
         const stepEntities =
           state.posCache.get(`${stepPos.x}:${stepPos.y}`) || [];
         const entitiesBlocking = stepEntities.some((x) => x.collision);
+
         if (entitiesBlocking) {
           // Check combat
           this.checkCombat(e, stepEntities);
@@ -55,6 +60,36 @@ export class MovementSystem {
         if (e.vision && e.viewShed) {
           e.viewShed.dirty = true;
         }
+      }
+    }
+  }
+
+  checkDialogue(e: Entity) {
+    if (e.wantsToMove === 'interact') {
+      console.log("we're interacting", e.position);
+      // get the possible positions
+      const up = state.posCache.get(`${e.position.x}:${e.position.y - 1}`);
+      const left = state.posCache.get(`${e.position.x - 1}:${e.position.y}`);
+      const right = state.posCache.get(`${e.position.x + 1}:${e.position.y}`);
+      const down = state.posCache.get(`${e.position.x}:${e.position.y + 1}`);
+
+      if (up !== undefined) {
+        if (up[0].dialogue === true) {
+          //feed that into the dialogue system
+          console.log(up[0]);
+        }
+      }
+      if (left !== undefined) {
+        // feed into the dialogue system
+        console.log(left[0]);
+      }
+      if (down !== undefined) {
+        // feed into the dialogue system
+        console.log(down[0]);
+      }
+      if (right !== undefined) {
+        //feed into the dialogue system
+        console.log(right[0]);
       }
     }
   }

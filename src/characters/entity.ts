@@ -33,6 +33,7 @@ export interface Entity {
   droppedItem?: Item;
   inventory?: Map<number, Item>;
   wantsToMove?: Direction;
+  dialogue?: boolean;
 
   consumable?: {
     hp?: number;

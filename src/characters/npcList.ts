@@ -8,14 +8,15 @@ interface EntityOptions {
 export function Garry(options: EntityOptions): Entity {
   return {
     id: Math.random().toString(),
-    name: 'Mal',
-    player: true,
+    name: 'Garry',
+    player: false,
     position: options.position,
     incomingDamage: [],
     renderPriority: 1,
     glyph: Glyph.fromCharCode(CharCode.at, Color.AliceBlue),
     vision: 7,
     collision: true,
+    dialogue: true,
     stats: {
       hp: 15,
       maxHp: 15,
