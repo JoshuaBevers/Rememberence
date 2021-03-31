@@ -34,6 +34,7 @@ export interface Entity {
   inventory?: Map<number, Item>;
   wantsToMove?: Direction;
   dialogue?: boolean;
+  interactQueue?: { source: Entity; dialogue?: boolean }[];
 
   consumable?: {
     hp?: number;

@@ -22,7 +22,17 @@ export class MovementSystem {
         const direction = directionVectors[e.wantsToMove];
 
         //dilogue checks
-        this.checkDialogue(e);
+        const possibleDialogue: {
+          source: Entity;
+          dialogue: boolean;
+        } = this.checkDialogue(e); // returns an object if they have dialogue options.
+        if (possibleDialogue.dialogue === true && e.interactQueue) {
+          e.interactQueue.push({
+            source: possibleDialogue.source,
+            dialogue: true,
+          });
+          console.log(e);
+        }
         //end dialogue checks
 
         //line
@@ -64,34 +74,31 @@ export class MovementSystem {
     }
   }
 
-  checkDialogue(e: Entity) {
+  checkDialogue(e: Entity): { source: Entity; dialogue: boolean } {
     if (e.wantsToMove === 'interact') {
-      console.log("we're interacting", e.position);
       // get the possible positions
       const up = state.posCache.get(`${e.position.x}:${e.position.y - 1}`);
       const left = state.posCache.get(`${e.position.x - 1}:${e.position.y}`);
       const right = state.posCache.get(`${e.position.x + 1}:${e.position.y}`);
       const down = state.posCache.get(`${e.position.x}:${e.position.y + 1}`);
 
-      if (up !== undefined) {
-        if (up[0].dialogue === true) {
-          //feed that into the dialogue system
-          console.log(up[0]);
-        }
-      }
-      if (left !== undefined) {
-        // feed into the dialogue system
-        console.log(left[0]);
-      }
-      if (down !== undefined) {
-        // feed into the dialogue system
-        console.log(down[0]);
-      }
-      if (right !== undefined) {
-        //feed into the dialogue system
-        console.log(right[0]);
+      if (up || left || right || down !== undefined) {
+        const interactArray = [up, left, right, down];
+        const filteredInteractArray = interactArray.filter((x) => {
+          if (x !== undefined) {
+            return x[0].dialogue === true;
+          }
+        });
+        if (filteredInteractArray[0]) {
+          const checkSum = filteredInteractArray[0];
+
+          if (checkSum[0].dialogue) {
+            return { source: checkSum[0], dialogue: true };
+          }
+        } // returns object
       }
     }
+    return { source: e, dialogue: false };
   }
 
   // Converts a movement into a melee attack if applicable

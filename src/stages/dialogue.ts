@@ -1,4 +1,4 @@
-import { Stage } from '../util/stage';
+import { Stage, map_height, map_width } from '../util/stage';
 import { Generation, Rand, Vector2 } from 'malwoden';
 import { Terrain } from '../util/terrain';
 import { strokeTable } from './helpers';
@@ -6,25 +6,16 @@ import { Entity } from '../characters/entity';
 import * as CharList from '../characters/teamList';
 import * as NPCList from '../characters/npcList';
 
-interface Stage1Config {
-  name: string;
-}
-export function characterCreation(
-  width: number,
-  height: number,
-  createPlayer: boolean,
-  config: Stage1Config,
-): Stage {
+export function dialogue(source: Entity, entity: Entity): Stage {
   //generate seed
   // Generate Terrain
-  const map_width = width;
-  const map_height = height;
+
   const map = new Generation.CellularAutomata<Terrain>(map_width, map_height, {
     aliveValue: Terrain.none,
     deadValue: Terrain.none,
   });
   map.randomize(0.63);
-  strokeTable(map.table, Terrain.tree); // change terrain
+  strokeTable(map.table, Terrain.tree); // change terrain for dialogue
 
   const open: Vector2[] = [];
   for (let x = 0; x < map.table.width; x++) {
@@ -33,25 +24,24 @@ export function characterCreation(
     }
   }
 
-  const rng = new Rand.AleaRNG();
-  const randomOpen = rng.shuffle(open);
   const entities: Entity[] = [];
 
-  let rngPos = 0;
-
-  const startPos = randomOpen[rngPos++];
+  const startPos = { x: 15, y: 15 };
+  const npcPOS = { x: 20, y: 15 };
   // Generate Player if applicable, start pos either way
 
-  entities.push(CharList.getPlayer({ position: startPos }));
-
+  source.position = npcPOS;
+  entity.position = startPos;
   // Generate Entities
-  const GarryPos = { x: startPos.x + 1, y: startPos.y };
-  entities.push(NPCList.Garry({ position: GarryPos }));
+
+  entities.push(entity);
+  const npcPos = entity.position;
+  entities.push(source);
 
   // Generate berries
 
   // Generate book
 
   // Create level
-  return new Stage(config.name, map.table, entities, startPos);
+  return new Stage(NPCList.Garry.name, map.table, entities, startPos);
 }

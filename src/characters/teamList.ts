@@ -16,6 +16,7 @@ export function getPlayer(options: EntityOptions): Entity {
     glyph: Glyph.fromCharCode(CharCode.at, Color.Yellow),
     vision: 7,
     collision: true,
+    interactQueue: [],
     stats: {
       hp: 15,
       maxHp: 15,

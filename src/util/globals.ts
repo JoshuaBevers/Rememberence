@@ -27,6 +27,7 @@ export const gameSeed = new Rand.AleaRNG();
 interface GlobalState {
   stageCount: number;
   stage: Stage;
+  prevStage: Stage | null;
   posCache: Map<string, Entity[]>;
   playerCache: Entity | undefined;
   help: boolean;
@@ -38,6 +39,8 @@ export const state: GlobalState = {
   stageCount: 0,
   // Stores the current level
   stage: selectStage(startingStage),
+  //previous stage
+  prevStage: null,
   // Allows quick lookup of entities.
   // Should not be changed outside the cache system
   posCache: new Map<string, Entity[]>(),
@@ -51,9 +54,11 @@ export const state: GlobalState = {
 };
 
 export function restart() {
-  Log.addEntryHigh('You are reborn. Let the snailing continue!');
-  state.stageCount = 1;
-  const newLevel = selectStage(state.stageCount);
+  Log.addEntryHigh(
+    'You are not remembering this properly. Let us start again.',
+  );
+  const newLevel = selectStage(0);
+  state.prevStage = null;
   state.stage = newLevel;
   state.currentGameState = GameState.GAME_START;
 }

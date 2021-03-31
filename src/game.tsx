@@ -8,6 +8,7 @@ import { InputSystem } from './systems/inputSystem';
 import { MovementSystem } from './systems/movementSystem';
 import { AISystem } from './systems/aiSystem';
 import { ViewSystem } from './systems/viewSystem';
+import { InteractSystem } from './systems/interactSystem';
 
 // Globals
 let terminal: Terminal.RetroTerminal;
@@ -18,6 +19,7 @@ const renderSystem = new RenderSystem();
 const cacheSystem = new CacheSystem();
 const inputSystem = new InputSystem();
 const movementSystem = new MovementSystem();
+const interactSystem = new InteractSystem();
 const aiSystem = new AISystem();
 const viewSystem = new ViewSystem();
 
@@ -45,6 +47,7 @@ export function loop() {
 
   // Logic Systems
   movementSystem.loop(state.stage);
+  interactSystem.loop(state.stage);
   viewSystem.loop(state.stage);
 
   if (state.currentGameState === GameState.ENEMY_TURN) {
