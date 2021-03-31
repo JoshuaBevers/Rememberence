@@ -11,6 +11,7 @@ const directionVectors: any = {
   [Direction.LEFT]: { x: -1, y: 0 },
   [Direction.RIGHT]: { x: 1, y: 0 },
   [Direction.INTERACT]: { x: 0, y: 0 },
+  [Direction.CONTINUE]: { x: 0, y: 0 },
 };
 
 export class MovementSystem {
@@ -20,7 +21,7 @@ export class MovementSystem {
       if (e.wantsToMove) {
         // Get direction, the reset wants to move
         const direction = directionVectors[e.wantsToMove];
-
+        console.log(e.wantsToMove);
         //dilogue checks
         const possibleDialogue: {
           source: Entity;
@@ -33,6 +34,7 @@ export class MovementSystem {
           });
           console.log(e);
         }
+
         //end dialogue checks
 
         //line
@@ -75,6 +77,15 @@ export class MovementSystem {
   }
 
   checkDialogue(e: Entity): { source: Entity; dialogue: boolean } {
+    if (e.wantsToMove === 'continue') {
+      e.wantsToMove = undefined;
+      console.log('found continue', typeof e.dialogueStep);
+      if (typeof e.dialogueStep === 'number') {
+        console.log('die');
+        e.dialogueStep++;
+      }
+    }
+
     if (e.wantsToMove === 'interact') {
       // get the possible positions
       const up = state.posCache.get(`${e.position.x}:${e.position.y - 1}`);

@@ -4,6 +4,7 @@ import { FOWTerrainGlyphs, TerrainGlyphs } from '../util/terrain';
 import { GameState, state } from '../util/globals';
 import { Entity } from '../characters/entity';
 import { Log, LogLevel } from '../util/logs';
+import { diaLog } from '../util/diaLogs';
 
 interface RenderSystemContext {
   stage: Stage;
@@ -116,13 +117,20 @@ export class RenderSystem {
     // -------------------------------------------------------------------------
     // possible dialogue box
     // -------------------------------------------------------------------------
-    if (state.stage.name === 'conversation') {
+    if (player && player.inDialogue === true) {
       GUI.box(terminal, {
         title: 'chat',
-        origin: { x: 16, y: 30 },
+        origin: { x: 16, y: 40 },
         width: 53,
         height: 9,
       });
+
+      for (let i = 0; i < diaLog.length(); i++) {
+        const [logLevel, txt] = diaLog.entries[i];
+        const logColor = logLevelColor[logLevel];
+        terminal.writeAt({ x: 17, y: 41 + i }, txt, logColor);
+        terminal.writeAt({ x: 28, y: 40 }, 'press spacebar to continue.');
+      }
     }
 
     // Calculate for player's viewshed
@@ -195,7 +203,6 @@ export class RenderSystem {
 
     // Only draw the label if the player can see it
     if (player?.viewShed?.area.has(`${worldPos.x}:${worldPos.y}`)) {
-      // console.log(worldPos);
       const selectedEntities = state.posCache.get(
         `${worldPos.x}:${worldPos.y}`,
       );

@@ -1,7 +1,5 @@
 import { map_height, map_width, Stage } from '../util/stage';
 import { characterCreation } from './characterCreation';
-import { dialogue } from './dialogue';
-import { state } from '../util/globals';
 
 export function selectStage(stage: number): Stage {
   switch (stage) {

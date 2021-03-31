@@ -8,7 +8,7 @@ interface EntityOptions {
 export function getPlayer(options: EntityOptions): Entity {
   return {
     id: Math.random().toString(),
-    name: 'Mal',
+    name: '??????',
     player: true,
     position: options.position,
     incomingDamage: [],
@@ -17,6 +17,7 @@ export function getPlayer(options: EntityOptions): Entity {
     vision: 7,
     collision: true,
     interactQueue: [],
+    dialogueStep: 0,
     stats: {
       hp: 15,
       maxHp: 15,

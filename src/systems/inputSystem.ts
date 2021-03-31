@@ -71,27 +71,53 @@ export class InputSystem {
       if (state.help) {
         state.help = false;
       }
-
+      //exit dialogue
+      if (player.inDialogue === true) {
+        player.inDialogue = false;
+        player.dialogueStep = 0;
+      }
       wasInput = false;
     } else if (this.currentPlayerInput === PlayerInput.SPACE) {
       // Normal Movement!
       // Space to wait
+      player.wantsToMove = Direction.CONTINUE;
+      player.dialogueNext = true;
       wasInput = true;
     } else if (this.currentPlayerInput === PlayerInput.UP) {
       // Direction Keys
       player.wantsToMove = Direction.UP;
       wasInput = true;
+      if (player.inDialogue === true) {
+        player.dialogueStep = 0;
+        player.inDialogue = false;
+      }
     } else if (this.currentPlayerInput === PlayerInput.DOWN) {
       player.wantsToMove = Direction.DOWN;
       wasInput = true;
+      if (player.inDialogue === true) {
+        player.dialogueStep = 0;
+        player.inDialogue = false;
+      }
     } else if (this.currentPlayerInput === PlayerInput.RIGHT) {
       player.wantsToMove = Direction.RIGHT;
       wasInput = true;
+      if (player.inDialogue === true) {
+        player.dialogueStep = 0;
+        player.inDialogue = false;
+      }
     } else if (this.currentPlayerInput === PlayerInput.LEFT) {
       player.wantsToMove = Direction.LEFT;
       wasInput = true;
+      if (player.inDialogue === true) {
+        player.dialogueStep = 0;
+        player.inDialogue = false;
+      }
     } else if (this.currentPlayerInput === PlayerInput.INTERACT) {
       player.wantsToMove = Direction.INTERACT;
+      if (player.inDialogue === true) {
+        player.dialogueStep = 0;
+        player.inDialogue = false;
+      }
     }
 
     // Make sure we reset the player input

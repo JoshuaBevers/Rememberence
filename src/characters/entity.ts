@@ -37,8 +37,18 @@ export interface Entity {
   droppedItem?: Item;
   inventory?: Map<number, Item>;
   wantsToMove?: Direction;
+
   dialogue?: boolean;
+  dialogueList?: {
+    m?: string;
+    question?: string;
+    answer?: { m: string; next: string };
+  }[];
   inDialogue?: boolean;
+  dialogueStep?: number;
+  conversingWith?: Entity;
+  dialogueNext?: boolean;
+
   condition?: conditions;
   interactQueue?: { source: Entity; dialogue?: boolean }[];
 

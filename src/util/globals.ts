@@ -19,6 +19,7 @@ export enum Direction {
   LEFT = 'left',
   RIGHT = 'right',
   INTERACT = 'interact',
+  CONTINUE = 'continue',
 }
 
 const startingStage = 0;
