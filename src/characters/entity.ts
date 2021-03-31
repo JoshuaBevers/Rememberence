@@ -12,6 +12,10 @@ interface Stats {
   exp: number;
 }
 
+interface conditions {
+  paralysed: boolean;
+}
+
 export interface Entity {
   id: string;
   name: string;
@@ -34,6 +38,8 @@ export interface Entity {
   inventory?: Map<number, Item>;
   wantsToMove?: Direction;
   dialogue?: boolean;
+  inDialogue?: boolean;
+  condition?: conditions;
   interactQueue?: { source: Entity; dialogue?: boolean }[];
 
   consumable?: {

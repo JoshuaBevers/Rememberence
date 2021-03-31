@@ -1,10 +1,11 @@
 import { Stage, map_height, map_width } from '../util/stage';
-import { Generation, Rand, Vector2 } from 'malwoden';
+import { Generation, Vector2 } from 'malwoden';
 import { Terrain } from '../util/terrain';
 import { strokeTable } from './helpers';
 import { Entity } from '../characters/entity';
-import * as CharList from '../characters/teamList';
-import * as NPCList from '../characters/npcList';
+import { state } from '../util/globals';
+import { Log } from '../util/logs';
+import { selectStage } from '../stages/mapHandler';
 
 export function dialogue(source: Entity, entity: Entity): Stage {
   //generate seed
@@ -26,22 +27,23 @@ export function dialogue(source: Entity, entity: Entity): Stage {
 
   const entities: Entity[] = [];
 
-  const startPos = { x: 15, y: 15 };
-  const npcPOS = { x: 20, y: 15 };
-  // Generate Player if applicable, start pos either way
-
-  source.position = npcPOS;
-  entity.position = startPos;
+  const startPos = { x: 25, y: 15 };
+  const npcPos = { x: 30, y: 15 };
   // Generate Entities
 
+  source.position = npcPos;
+  entity.position = startPos;
+  if (entity.viewShed) {
+    entity.viewShed.dirty = true;
+  }
+
   entities.push(entity);
-  const npcPos = entity.position;
   entities.push(source);
 
-  // Generate berries
+  //testing
+  console.log('ello', state.prevLocation);
+  console.log(state.stage);
+  Log.addEntryMid(`entering, ${state.stage.name}`);
 
-  // Generate book
-
-  // Create level
-  return new Stage(NPCList.Garry.name, map.table, entities, startPos);
+  return new Stage('conversation', map.table, entities, startPos);
 }

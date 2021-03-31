@@ -25,9 +25,9 @@ const startingStage = 0;
 export const gameSeed = new Rand.AleaRNG();
 
 interface GlobalState {
-  stageCount: number;
+  location: number;
   stage: Stage;
-  prevStage: Stage | null;
+  prevLocation: Stage;
   posCache: Map<string, Entity[]>;
   playerCache: Entity | undefined;
   help: boolean;
@@ -36,11 +36,11 @@ interface GlobalState {
 
 export const state: GlobalState = {
   // The current level 'depth'
-  stageCount: 0,
+  location: 0,
   // Stores the current level
   stage: selectStage(startingStage),
   //previous stage
-  prevStage: null,
+  prevLocation: selectStage(startingStage),
   // Allows quick lookup of entities.
   // Should not be changed outside the cache system
   posCache: new Map<string, Entity[]>(),
@@ -58,7 +58,6 @@ export function restart() {
     'You are not remembering this properly. Let us start again.',
   );
   const newLevel = selectStage(0);
-  state.prevStage = null;
   state.stage = newLevel;
   state.currentGameState = GameState.GAME_START;
 }

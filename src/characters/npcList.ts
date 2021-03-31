@@ -16,6 +16,7 @@ export function Garry(options: EntityOptions): Entity {
     glyph: Glyph.fromCharCode(CharCode.at, Color.AliceBlue),
     vision: 7,
     collision: true,
+
     dialogue: true,
     stats: {
       hp: 15,

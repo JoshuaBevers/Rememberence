@@ -9,9 +9,16 @@ export class InteractSystem {
     entity: Entity,
   ) {
     console.log('dialogue', interaction, entity);
-    state.prevStage = state.stage;
+    const prev = state.stage;
+    state.prevLocation = prev;
     state.stage = dialogue(interaction.source, entity);
+    setInterval(() => {
+      state.stage = prev;
+    }, 3000);
     //create dialogue scene.
+    if (entity.inDialogue) {
+      entity.inDialogue = true;
+    }
   }
 
   loop(stage: Stage) {

@@ -9,6 +9,7 @@ import { MovementSystem } from './systems/movementSystem';
 import { AISystem } from './systems/aiSystem';
 import { ViewSystem } from './systems/viewSystem';
 import { InteractSystem } from './systems/interactSystem';
+import { ConditionSystem } from './systems/conditionSystem';
 
 // Globals
 let terminal: Terminal.RetroTerminal;
@@ -22,6 +23,7 @@ const movementSystem = new MovementSystem();
 const interactSystem = new InteractSystem();
 const aiSystem = new AISystem();
 const viewSystem = new ViewSystem();
+const conditionSystem = new ConditionSystem();
 
 export function init(term: Terminal.RetroTerminal) {
   terminal = term;
@@ -46,7 +48,9 @@ export function loop() {
   }
 
   // Logic Systems
+  conditionSystem.loop(state.stage);
   movementSystem.loop(state.stage);
+  conditionSystem.loop(state.stage);
   interactSystem.loop(state.stage);
   viewSystem.loop(state.stage);
 

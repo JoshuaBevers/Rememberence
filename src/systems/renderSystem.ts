@@ -61,6 +61,7 @@ export class RenderSystem {
     // -------------------------------------------------------------------------
     // Logs
     // -------------------------------------------------------------------------
+
     GUI.box(terminal, {
       title: 'Log',
       origin: { x: 16, y: 40 },
@@ -110,6 +111,18 @@ export class RenderSystem {
           }
         }
       }
+    }
+
+    // -------------------------------------------------------------------------
+    // possible dialogue box
+    // -------------------------------------------------------------------------
+    if (state.stage.name === 'conversation') {
+      GUI.box(terminal, {
+        title: 'chat',
+        origin: { x: 16, y: 30 },
+        width: 53,
+        height: 9,
+      });
     }
 
     // Calculate for player's viewshed

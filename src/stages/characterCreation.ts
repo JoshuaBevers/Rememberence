@@ -5,6 +5,7 @@ import { strokeTable } from './helpers';
 import { Entity } from '../characters/entity';
 import * as CharList from '../characters/teamList';
 import * as NPCList from '../characters/npcList';
+import { Log } from '../util/logs';
 
 interface Stage1Config {
   name: string;
@@ -51,6 +52,7 @@ export function characterCreation(
   // Generate berries
 
   // Generate book
+  Log.addEntryMid(`entering, `);
 
   // Create level
   return new Stage(config.name, map.table, entities, startPos);
