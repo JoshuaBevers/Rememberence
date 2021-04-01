@@ -8,11 +8,9 @@ export class InteractSystem {
   ) {
     if (entity) {
       entity.inDialogue = true;
-      console.log('source', interaction.source);
       entity.conversingWith = interaction.source;
       entity.dialogueStep = 0;
     }
-    console.log(entity);
     //create dialogue scene.
   }
 

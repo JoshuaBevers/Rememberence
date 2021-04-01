@@ -21,7 +21,6 @@ export class MovementSystem {
       if (e.wantsToMove) {
         // Get direction, the reset wants to move
         const direction = directionVectors[e.wantsToMove];
-        console.log(e.wantsToMove);
         //dilogue checks
         const possibleDialogue: {
           source: Entity;
@@ -32,7 +31,6 @@ export class MovementSystem {
             source: possibleDialogue.source,
             dialogue: true,
           });
-          console.log(e);
         }
 
         //end dialogue checks
@@ -79,9 +77,7 @@ export class MovementSystem {
   checkDialogue(e: Entity): { source: Entity; dialogue: boolean } {
     if (e.wantsToMove === 'continue') {
       e.wantsToMove = undefined;
-      console.log('found continue', typeof e.dialogueStep);
       if (typeof e.dialogueStep === 'number') {
-        console.log('die');
         e.dialogueStep++;
       }
     }
