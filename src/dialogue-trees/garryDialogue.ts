@@ -17,7 +17,7 @@ export const GarryDialogue: {
   {
     m: 'Thank you. I will try and remember it this time.',
   },
-  { next: ['base branch'] },
+  { next: ['end dialogue'] },
   {
     m: 'A shame. Perhaps if you give me yours I will remember mine?',
     label: 'does not remember',

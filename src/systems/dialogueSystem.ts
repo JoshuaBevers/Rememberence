@@ -24,6 +24,10 @@ export class DialogueSystem {
 
         //check for current message
         if (currentMessage !== undefined) {
+          // ends the dialogue if the label is end dialogue
+          if (currentMessage.label === 'end dialogue') {
+            player.inDialogue = false;
+          }
           //checks to see if current message is .m and that it is not the same as last message.
           if (
             currentMessage.m !== undefined &&
