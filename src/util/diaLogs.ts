@@ -42,6 +42,10 @@ class DiaLogManifest {
     while (this.entries.length > this.maxLogs) this.entries.shift();
   }
 
+  clearEntries() {
+    this.entries = [];
+  }
+
   length() {
     return this.entries.length;
   }

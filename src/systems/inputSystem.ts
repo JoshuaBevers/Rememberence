@@ -12,6 +12,11 @@ enum PlayerInput {
   ESC,
   HELP,
   INTERACT,
+  //dialogue options
+  ONE,
+  TWO,
+  THREE,
+  FOUR,
 }
 
 export class InputSystem {
@@ -51,6 +56,22 @@ export class InputSystem {
       .onDown(
         Input.KeyCode.E,
         () => (this.currentPlayerInput = PlayerInput.INTERACT),
+      )
+      .onDown(
+        Input.KeyCode.One,
+        () => (this.currentPlayerInput = PlayerInput.ONE),
+      )
+      .onDown(
+        Input.KeyCode.Two,
+        () => (this.currentPlayerInput = PlayerInput.TWO),
+      )
+      .onDown(
+        Input.KeyCode.Three,
+        () => (this.currentPlayerInput = PlayerInput.THREE),
+      )
+      .onDown(
+        Input.KeyCode.Four,
+        () => (this.currentPlayerInput = PlayerInput.FOUR),
       );
 
     keyboard.setContext(movement);
@@ -118,6 +139,15 @@ export class InputSystem {
         player.dialogueStep = 0;
         player.inDialogue = false;
       }
+    } else if (this.currentPlayerInput === PlayerInput.ONE) {
+      // answers to questions
+      player.questionAnswer = 0;
+    } else if (this.currentPlayerInput === PlayerInput.TWO) {
+      player.questionAnswer = 1;
+    } else if (this.currentPlayerInput === PlayerInput.THREE) {
+      player.questionAnswer = 2;
+    } else if (this.currentPlayerInput === PlayerInput.FOUR) {
+      player.questionAnswer = 3;
     }
 
     // Make sure we reset the player input

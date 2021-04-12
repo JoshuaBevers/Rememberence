@@ -1,5 +1,7 @@
 import { Stage } from '../util/stage';
 import { Entity } from '../characters/entity';
+import { diaLog } from '../util/diaLogs';
+import { isExpressionWithTypeArguments } from 'typescript';
 
 export class InteractSystem {
   private handleDialogue(
@@ -7,9 +9,10 @@ export class InteractSystem {
     entity: Entity,
   ) {
     if (entity) {
+      diaLog.clearEntries();
+      entity.dialogueStep = 0;
       entity.inDialogue = true;
       entity.conversingWith = interaction.source;
-      entity.dialogueStep = 0;
     }
     //create dialogue scene.
   }
@@ -23,8 +26,9 @@ export class InteractSystem {
         //handle dialogue
         if (interaction && interaction.dialogue === true) {
           this.handleDialogue(interaction, e);
-          e.inDialogue = true;
         }
+
+        //handle ....
       }
     }
   }

@@ -77,9 +77,6 @@ export class MovementSystem {
   checkDialogue(e: Entity): { source: Entity; dialogue: boolean } {
     if (e.wantsToMove === 'continue') {
       e.wantsToMove = undefined;
-      if (typeof e.dialogueStep === 'number') {
-        e.dialogueStep++;
-      }
     }
 
     if (e.wantsToMove === 'interact') {
