@@ -21,15 +21,9 @@ export class DialogueSystem {
 
         const step = player.dialogueStep;
         const currentMessage = npc.dialogueList[step];
-        console.log();
 
         //check for current message
         if (currentMessage !== undefined) {
-          // ends the dialogue if the label is end dialogue
-          if (currentMessage.label === 'end dialogue') {
-            console.log('we endin');
-            player.inDialogue = false;
-          }
           //checks to see if current message is .m and that it is not the same as last message.
           if (
             currentMessage.m !== undefined &&
@@ -98,7 +92,6 @@ export class DialogueSystem {
             });
           }
         } else {
-          console.log('ending dialogue.');
           player.inDialogue = false;
         }
       }
